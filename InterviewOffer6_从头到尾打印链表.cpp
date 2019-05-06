@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stack>
 using namespace std;
 
 
@@ -10,23 +11,22 @@ struct ListNode {
 
 class Solution {
 public:
-    ListNode* deleteDuplicates(ListNode* head) {
-        if (head == NULL) return NULL;
+    void PrintListReversingly(ListNode* head) {
+        stack<ListNode*> nodes;
         
-        ListNode *cur = head;
-        while (cur && cur->next)
+        ListNode *pNode = head;
+        while (pNode != nullptr)
         {
-        	if (cur->next->val == cur->val)
-        	{
-        		cur->next = cur->next->next;
-			}
-			else {
-				cur = cur->next;
-			}
+        	nodes.push(pNode);
+        	pNode = pNode->next;
 		}
-
-		return head;
 		
+		while (!nodes.empty())
+		{
+			pNode = nodes.top();
+			cout << pNode->val << "\t";
+			nodes.pop();	
+		}		
     }
 };
 void test_data()
@@ -47,13 +47,7 @@ void test_data()
         p->next = NULL;
         
         head = head->next;
-        head = s.deleteDuplicates(head);
-        while (head)
-        {
-            cout << head->val << " ";
-            head = head->next;
-         
-        }
+		s.PrintListReversingly(head);
 }
 int main()
 {
